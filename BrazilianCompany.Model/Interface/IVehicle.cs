@@ -22,5 +22,7 @@ namespace BrazilianCompany.Model.Interface
 
         int Sector { get; }
         int Place { get; }
+
+        string ToString();
     }
 }

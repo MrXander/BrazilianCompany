@@ -1,8 +1,11 @@
 ﻿#region usings
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using BrazilianCompany.Logic.Interface;
 using BrazilianCompany.Model.Command.Parameters;
+using BrazilianCompany.Model.Interface;
 using BrazilianCompany.Model.Model;
 using Newtonsoft.Json;
 
@@ -13,7 +16,7 @@ namespace BrazilianCompany.Logic.Command
     internal class FindVehicleByOwnerCommand : ICommand
     {
         private readonly FindByOwnerParams _params;
-        private string _state;
+        private IList<IVehicle> _state;
 
         public FindVehicleByOwnerCommand(string args)
         {            
@@ -27,7 +30,9 @@ namespace BrazilianCompany.Logic.Command
 
         public object GetState()
         {
-            return _state ?? string.Empty;
+            if (_state == null || !_state.Any()) return $"No vehicles by {_params.Owner}";
+
+            return string.Join(Environment.NewLine, _state);
         }
     }
 }

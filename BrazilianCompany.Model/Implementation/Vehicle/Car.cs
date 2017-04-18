@@ -31,5 +31,10 @@ namespace BrazilianCompany.Model.Implementation.Vehicle
         public DateTime EnterTime { get; }
         public int Sector { get; }
         public int Place { get; }
+
+        public override string ToString()
+        {
+            return $"{GetType().Name} [{LicensePlate}], owned by {Owner}{Environment.NewLine}Parked at ({Sector},{Place})";
+        }
     }
 }

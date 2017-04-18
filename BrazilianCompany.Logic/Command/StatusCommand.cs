@@ -1,6 +1,8 @@
 ﻿#region usings
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using BrazilianCompany.Logic.Interface;
 using BrazilianCompany.Model.Model;
 
@@ -10,7 +12,7 @@ namespace BrazilianCompany.Logic.Command
 {
     internal class StatusCommand : ICommand
     {
-        private string _state;
+        private List<SectorStatus> _state;
 
         public StatusCommand(string args)
         {
@@ -28,7 +30,9 @@ namespace BrazilianCompany.Logic.Command
 
         public object GetState()
         {
-            return _state ?? string.Empty;
+            if (_state == null || !_state.Any()) return string.Empty;
+
+            return string.Join(Environment.NewLine, _state);
         }
     }
 }

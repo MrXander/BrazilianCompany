@@ -69,9 +69,9 @@ namespace BrazilianCompany.Logic.Implementation
             );
         }
 
-        public string GetStatus()
+        public List<SectorStatus> GetStatus()
         {
-            var statistic = new List<string>(_layout.Sectors);
+            var statistic = new List<SectorStatus>(_layout.Sectors);
             for (var sector = 1; sector <= _layout.Sectors; sector++)
             {
                 var occupiedPlaces = 0;
@@ -80,39 +80,26 @@ namespace BrazilianCompany.Logic.Implementation
                     if (DataRepository.IsPlaceOccupied(sector, place))
                         occupiedPlaces++;
                 }
-                var s =
-                    $"Sector {sector}: {occupiedPlaces} / {_layout.PlacesSec} ({Math.Round((double) occupiedPlaces / _layout.PlacesSec * 100)}% full)";
-
-                statistic.Add(s);
+            
+                statistic.Add(new SectorStatus(sector, _layout.PlacesSec, occupiedPlaces));
             }
 
-            return string.Join(Environment.NewLine, statistic);
+            return statistic;
         }
 
-        public string FindVehicle(string licensePlate)
+        public IVehicle FindVehicle(string licensePlate)
         {
             var vehicle = DataRepository.GetVehicle(licensePlate);
             if (vehicle == null)
-                return $"There is no vehicle with license plate {licensePlate} in the park";
+                throw new ArgumentException($"There is no vehicle with license plate {licensePlate} in the park");
 
-            return Input(new[] {vehicle});
+            return vehicle;
         }
 
-        public string FindVehiclesByOwner(string owner)
+        public IList<IVehicle> FindVehiclesByOwner(string owner)
         {
-            var vehicles = DataRepository.FindVehiclesByOwner(owner);
-            return vehicles.Any()
-                ? string.Join(Environment.NewLine, Input(vehicles))
-                : $"No vehicles by {owner}";
-        }
-
-        private static string Input(IEnumerable<IVehicle> vehicles)
-        {
-            return string.Join(Environment.NewLine,
-                vehicles.Select(
-                    vehicle =>
-                        $"{vehicle.GetType().Name} [{vehicle.LicensePlate}], owned by {vehicle.Owner}{Environment.NewLine}Parked at ({vehicle.Sector},{vehicle.Place})"));
-        }
+            return DataRepository.FindVehiclesByOwner(owner);            
+        }       
 
         private void Validate(int sector, int placeNumber, IVehicle vehicle, DateTime startTime)
         {

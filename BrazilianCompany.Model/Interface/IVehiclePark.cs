@@ -1,7 +1,9 @@
 ﻿#region usings
 
 using System;
+using System.Collections.Generic;
 using BrazilianCompany.Logic.Implementation;
+using BrazilianCompany.Model.Model;
 
 #endregion
 
@@ -44,14 +46,14 @@ namespace BrazilianCompany.Model.Interface
         /// Prints the current status of the parking lot
         /// </summary>
         /// <returns></returns>
-        string GetStatus();
+        List<SectorStatus> GetStatus();
 
         /// <summary>
         /// Tries to find a vehicle with the specified license plate number in the parking lot.
         /// </summary>
         /// <param name="licensePlate">License plate</param>
         /// <returns></returns>
-        string FindVehicle(string licensePlate);
+        IVehicle FindVehicle(string licensePlate);
 
         /// <summary>
         /// Lists all vehicles by the specified owner in the parking lot, ordered by arrival time (in ascending
@@ -59,6 +61,6 @@ namespace BrazilianCompany.Model.Interface
         /// </summary>
         /// <param name="owner">Owner</param>
         /// <returns></returns>
-        string FindVehiclesByOwner(string owner);
+        IList<IVehicle> FindVehiclesByOwner(string owner);
     }
 }

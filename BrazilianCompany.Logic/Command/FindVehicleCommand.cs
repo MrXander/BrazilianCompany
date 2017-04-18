@@ -2,6 +2,7 @@
 
 using BrazilianCompany.Logic.Interface;
 using BrazilianCompany.Model.Command.Parameters;
+using BrazilianCompany.Model.Interface;
 using BrazilianCompany.Model.Model;
 using Newtonsoft.Json;
 
@@ -12,7 +13,7 @@ namespace BrazilianCompany.Logic.Command
     internal class FindVehicleCommand : ICommand
     {
         private readonly FindVehicleParams _params;
-        private string _state;
+        private IVehicle _state;
 
         public FindVehicleCommand(string args)
         {
@@ -26,7 +27,7 @@ namespace BrazilianCompany.Logic.Command
 
         public object GetState()
         {
-            return _state ?? string.Empty;
+            return (object) _state ?? string.Empty;
         }
     }
 }
