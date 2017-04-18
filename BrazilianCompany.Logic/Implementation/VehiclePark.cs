@@ -15,12 +15,12 @@ namespace BrazilianCompany.Logic.Implementation
 {
     public class VehiclePark : IVehiclePark
     {
-        private readonly IDataRepository _dataRepository;
+        protected readonly IDataRepository DataRepository;
         private readonly Layout _layout;
 
         public VehiclePark(int numberOfSectors, int placesPerSector, IDataRepository dataRepository)
         {
-            _dataRepository = dataRepository;
+            DataRepository = dataRepository;
             _layout = new Layout(numberOfSectors, placesPerSector);
         }
 
@@ -28,52 +28,45 @@ namespace BrazilianCompany.Logic.Implementation
         {
             Validate(sector, placeNumber, vehicle, startTime);
 
-            if (_dataRepository.IsPlaceOccupied(sector, placeNumber))
+            if (DataRepository.IsPlaceOccupied(sector, placeNumber))
                 return $"The place ({sector},{placeNumber}) is occupied";
 
-            if (_dataRepository.HasVehicle(vehicle.LicensePlate))
+            if (DataRepository.HasVehicle(vehicle.LicensePlate))
                 return $"There is already a vehicle with license plate {vehicle.LicensePlate} in the park";
 
-            _dataRepository.AddVehicle(sector, placeNumber, vehicle);
+            DataRepository.AddVehicle(sector, placeNumber, vehicle);
 
             return $"{vehicle.GetType().Name} parked successfully at place ({sector},{placeNumber})";
         }
 
-        public string ExitVehicle(string licensePlate, DateTime exitTime, decimal paid)
+        public Ticket ExitVehicle(string licensePlate, DateTime exitTime, decimal paid)
         {
-            if (!_dataRepository.HasVehicle(licensePlate))
-                return $"There is no vehicle with license plate {licensePlate} in the park";
+            if (paid <= 0)
+                throw new ArgumentException("Invalid paid");
 
-            var vehicle = _dataRepository.GetVehicle(licensePlate);
+            if (!DataRepository.HasVehicle(licensePlate))
+                throw new ArgumentException($"There is no vehicle with license plate {licensePlate} in the park");
+
+            var vehicle = DataRepository.GetVehicle(licensePlate);
+
+            if (exitTime <= vehicle.EnterTime)
+                throw new ArgumentException("Invalid exit time");
 
             var enterTime = vehicle.EnterTime;
             var overtimeHours = (int) Math.Round((exitTime - enterTime).TotalHours) - vehicle.ReservedHours;
             var overtimeRate = overtimeHours > 0 ? overtimeHours * vehicle.OvertimeRate : 0;
             var regularRate = vehicle.RegularRate * vehicle.ReservedHours;
 
-            _dataRepository.RemoveVehicle(vehicle.Sector, vehicle.Place);
+            DataRepository.RemoveVehicle(vehicle.Sector, vehicle.Place);
 
-            var stars = new string('*', 20);
-            var ticket = new StringBuilder();
-            ticket.AppendLine(stars)
-                .AppendFormat("{0} [{1}], owned by {2}", vehicle.GetType().Name, vehicle.LicensePlate, vehicle.Owner)
-                .AppendLine()
-                .AppendFormat("at place ({0},{1})", vehicle.Sector, vehicle.Place)
-                .AppendLine()
-                .AppendFormat("Rate: ${0:F2}", regularRate)
-                .AppendLine()
-                .AppendFormat("Overtime rate: ${0:F2}", overtimeRate)
-                .AppendLine()
-                .AppendLine(new string('-', 20))
-                .AppendFormat("Total: ${0:F2}", regularRate + overtimeRate)
-                .AppendLine()
-                .AppendFormat("Paid: ${0:F2}", paid)
-                .AppendLine()
-                .AppendFormat("Change: ${0:F2}", paid - (regularRate + overtimeRate))
-                .AppendLine()
-                .Append(stars);
-
-            return ticket.ToString();
+            return new Ticket(
+                vehicle,
+                regularRate,
+                overtimeRate,
+                regularRate + overtimeRate,
+                paid,
+                paid - (regularRate + overtimeRate)
+            );
         }
 
         public string GetStatus()
@@ -84,7 +77,7 @@ namespace BrazilianCompany.Logic.Implementation
                 var occupiedPlaces = 0;
                 for (var place = 1; place <= _layout.PlacesSec; place++)
                 {
-                    if (_dataRepository.IsPlaceOccupied(sector, place))
+                    if (DataRepository.IsPlaceOccupied(sector, place))
                         occupiedPlaces++;
                 }
                 var s =
@@ -98,7 +91,7 @@ namespace BrazilianCompany.Logic.Implementation
 
         public string FindVehicle(string licensePlate)
         {
-            var vehicle = _dataRepository.GetVehicle(licensePlate);
+            var vehicle = DataRepository.GetVehicle(licensePlate);
             if (vehicle == null)
                 return $"There is no vehicle with license plate {licensePlate} in the park";
 
@@ -107,7 +100,7 @@ namespace BrazilianCompany.Logic.Implementation
 
         public string FindVehiclesByOwner(string owner)
         {
-            var vehicles = _dataRepository.FindVehiclesByOwner(owner);
+            var vehicles = DataRepository.FindVehiclesByOwner(owner);
             return vehicles.Any()
                 ? string.Join(Environment.NewLine, Input(vehicles))
                 : $"No vehicles by {owner}";
@@ -126,7 +119,7 @@ namespace BrazilianCompany.Logic.Implementation
             ValidatePlace(sector, placeNumber);
             ValidateVehicle(vehicle);
 
-            if (startTime == DateTime.MinValue && startTime > DateTime.UtcNow)
+            if (startTime == DateTime.MinValue || startTime > DateTime.UtcNow)
                 throw new InvalidOperationException();
         }
 
@@ -145,9 +138,9 @@ namespace BrazilianCompany.Logic.Implementation
 
         private void ValidatePlace(int sector, int placeNumber)
         {
-            if (sector < 0 || sector > _layout.Sectors)
+            if (sector <= 0 || sector > _layout.Sectors)
                 throw new ArgumentException($"There is no sector {sector} in the park");
-            if (placeNumber < 0 || placeNumber > _layout.PlacesSec)
+            if (placeNumber <= 0 || placeNumber > _layout.PlacesSec)
                 throw new ArgumentException($"There is no place {placeNumber} in sector {sector}");
         }
     }

@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyInitializer.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="VehicleParkSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -55,6 +55,7 @@
     <Compile Include="Model\Context.cs" />
     <Compile Include="Model\Layout.cs" />
     <Compile Include="Model\SupportedCommands.cs" />
+    <Compile Include="Model\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

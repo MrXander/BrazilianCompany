@@ -1,6 +1,8 @@
 ﻿#region usings
 
 using System;
+using System.Text;
+using BrazilianCompany.Logic.Implementation;
 using BrazilianCompany.Logic.Interface;
 using BrazilianCompany.Model.Command.Parameters;
 using BrazilianCompany.Model.Model;
@@ -13,7 +15,7 @@ namespace BrazilianCompany.Logic.Command
     internal class ExitCommand : ICommand
     {
         private readonly ExitParams _exitParams;
-        private string _state;
+        private Ticket _state;
 
         public ExitCommand(string args)
         {
@@ -27,7 +29,7 @@ namespace BrazilianCompany.Logic.Command
 
         public object GetState()
         {
-            return _state ?? string.Empty;
+            return _state == null ? string.Empty : _state.ToString();
         }
     }
 }

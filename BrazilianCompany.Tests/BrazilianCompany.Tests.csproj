@@ -45,13 +45,32 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="VehicleParkTests.cs" />
+    <Compile Include="VehiclePark_StatusTests.cs" />
+    <Compile Include="VehicleParkTestMock.cs" />
+    <Compile Include="VehiclePark_ExitVehicleTests.cs" />
+    <Compile Include="VehiclePark_ParkTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BrazilianCompany.DataAccess\BrazilianCompany.DataAccess.csproj">
+      <Project>{560F16C4-1A6E-4496-A7ED-B93B9C1D2EA2}</Project>
+      <Name>BrazilianCompany.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BrazilianCompany.Logic\BrazilianCompany.Logic.csproj">
+      <Project>{3B98DAE8-7F57-49E8-8AA1-15872D7D5782}</Project>
+      <Name>BrazilianCompany.Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BrazilianCompany.Model\BrazilianCompany.Model.csproj">
+      <Project>{CA70514B-2D6F-4B58-ADA4-E1EDBAB49E9D}</Project>
+      <Name>BrazilianCompany.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

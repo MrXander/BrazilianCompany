@@ -1,6 +1,7 @@
 ﻿#region usings
 
 using System;
+using BrazilianCompany.Logic.Implementation;
 
 #endregion
 
@@ -37,7 +38,7 @@ namespace BrazilianCompany.Model.Interface
         /// <param name="exitTime">Exit time</param>
         /// <param name="paid">Amount paid</param>
         /// <returns></returns>
-        string ExitVehicle(string licensePlate, DateTime exitTime, decimal paid);
+        Ticket ExitVehicle(string licensePlate, DateTime exitTime, decimal paid);
 
         /// <summary>
         /// Prints the current status of the parking lot

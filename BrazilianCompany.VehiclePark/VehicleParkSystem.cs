@@ -7,7 +7,7 @@ using BrazilianCompany.Logic.Implementation;
 
 namespace BrazilianCompany.VehiclePark
 {
-    public static class Program
+    public static class VehicleParkSystem
     {
         private static IContainer Container { get; set; }
 
