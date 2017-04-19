@@ -15,35 +15,27 @@ namespace BrazilianCompany.Tests
     [TestClass]
     public class VehiclePark_FindVehicleByOwnerTests
     {
-        private VehicleParkTestMock _parkVehicle;
-
-        [TestInitialize]
-        public void Initialize()
-        {
-            _parkVehicle = new VehicleParkTestMock(2, 3, new DataRepository());
-        }
+        private VehicleParkTestMock _parkVehicle;        
 
         [TestMethod]
-        public void FindByOwner()
+        public void HasCarForOwner()
         {
             var licensePlate = "AA1111AA";
             var owner = "DrHouse";
 
             var mock = new Mock<IDataRepository>();
-            mock.Setup(m => m.FindVehiclesByOwner(owner))
-                .Returns<List<IVehicle>>(vehicle => new List<IVehicle>
+            mock.Setup(m => m.FindVehiclesByOwner(It.IsAny<string>()))
+                .Returns((string ow) => new List<IVehicle>
                 {
-                    new Car(licensePlate, owner, 1, DateTime.UtcNow, 1, 1)
+                    new Car(licensePlate, ow, 1, DateTime.UtcNow, 1, 1)
                 });
-
-            var test = mock.Object.FindVehiclesByOwner(owner);
-
+            
             _parkVehicle = new VehicleParkTestMock(2, 3, mock.Object);
 
             var result = _parkVehicle.FindVehiclesByOwner(owner);
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Count);
             Assert.AreEqual(licensePlate, result[0].LicensePlate);
-        }
+        }     
     }
 }

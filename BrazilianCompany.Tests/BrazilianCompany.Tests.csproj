@@ -61,6 +61,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="VehiclePark_FindVehicleByOwnerTests.cs" />
+    <Compile Include="VehiclePark_FindVehicleTests.cs" />
     <Compile Include="VehiclePark_StatusTests.cs" />
     <Compile Include="VehicleParkTestMock.cs" />
     <Compile Include="VehiclePark_ExitVehicleTests.cs" />

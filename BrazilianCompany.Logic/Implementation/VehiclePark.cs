@@ -47,7 +47,7 @@ namespace BrazilianCompany.Logic.Implementation
             if (!DataRepository.HasVehicle(licensePlate))
                 throw new ArgumentException($"There is no vehicle with license plate {licensePlate} in the park");
 
-            var vehicle = DataRepository.GetVehicle(licensePlate);
+            var vehicle = DataRepository.FindVehicle(licensePlate);
 
             if (exitTime <= vehicle.EnterTime)
                 throw new ArgumentException("Invalid exit time");
@@ -89,7 +89,7 @@ namespace BrazilianCompany.Logic.Implementation
 
         public IVehicle FindVehicle(string licensePlate)
         {
-            var vehicle = DataRepository.GetVehicle(licensePlate);
+            var vehicle = DataRepository.FindVehicle(licensePlate);
             if (vehicle == null)
                 throw new ArgumentException($"There is no vehicle with license plate {licensePlate} in the park");
 

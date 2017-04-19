@@ -48,7 +48,7 @@ namespace BrazilianCompany.DataAccess
                 v => string.Equals(v.LicensePlate, licensePlate, StringComparison.OrdinalIgnoreCase));
         }
 
-        public IVehicle GetVehicle(string licensePlate)
+        public IVehicle FindVehicle(string licensePlate)
         {
             return _sectorPlaceToLicensePlate.Values.FirstOrDefault(
                 v => string.Equals(v.LicensePlate, licensePlate, StringComparison.OrdinalIgnoreCase));

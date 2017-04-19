@@ -12,7 +12,7 @@ namespace BrazilianCompany.DataAccess
         void AddVehicle(int sector, int place, IVehicle vehicle);
         void RemoveVehicle(int sector, int place);
         bool IsPlaceOccupied(int sector, int place);
-        IVehicle GetVehicle(string licensePlate);
+        IVehicle FindVehicle(string licensePlate);
         bool HasVehicle(string licensePlate);
         IList<IVehicle> FindVehiclesByOwner(string owner);
     }
