@@ -20,7 +20,7 @@ namespace BrazilianCompany.Model.Implementation.Vehicle
             EnterTime = enterTime;
             Sector = sector;
             Place = place;
-            EnterTime = DateTime.UtcNow;
+            EnterTime = enterTime;
         }
 
         public string LicensePlate { get; }
