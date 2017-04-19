@@ -1,10 +1,9 @@
 ﻿#region usings
 
 using System;
-using System.Collections.Generic;
 using BrazilianCompany.DataAccess;
+using BrazilianCompany.Model;
 using BrazilianCompany.Model.Implementation.Vehicle;
-using BrazilianCompany.Model.Interface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -25,12 +24,13 @@ namespace BrazilianCompany.Tests
 
             var mock = new Mock<IDataRepository>();
             mock.Setup(m => m.FindVehicle(It.IsAny<string>()))
-                .Returns((string lp) => new Car(lp, owner, 1, DateTime.UtcNow, 1, 1));
+                .Returns((string lp) => new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE,
+                    VehicleType.Car, lp, owner, 1, DateTime.UtcNow, 1, 1));
 
             _parkVehicle = new VehicleParkTestMock(2, 3, mock.Object);
 
             var result = _parkVehicle.FindVehicle(licensePlate);
-            Assert.IsNotNull(result);            
+            Assert.IsNotNull(result);
             Assert.AreEqual(licensePlate, result.LicensePlate);
         }
 
@@ -39,10 +39,10 @@ namespace BrazilianCompany.Tests
         public void NoVehicleFound()
         {
             var licensePlate = "AA1111AA";
-           
+
             _parkVehicle = new VehicleParkTestMock(2, 3, new DataRepository());
 
-            _parkVehicle.FindVehicle(licensePlate);          
+            _parkVehicle.FindVehicle(licensePlate);
         }
     }
 }

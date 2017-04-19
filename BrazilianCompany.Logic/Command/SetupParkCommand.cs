@@ -1,13 +1,11 @@
 ﻿#region usings
 
-using System;
 using Autofac;
 using BrazilianCompany.DataAccess;
 using BrazilianCompany.Logic.Interface;
 using BrazilianCompany.Model.Command.Parameters;
 using BrazilianCompany.Model.Interface;
 using BrazilianCompany.Model.Model;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -21,7 +19,7 @@ namespace BrazilianCompany.Logic.Command
 
         public SetupParkCommand(string args, IContainer container)
         {
-            _container = container;            
+            _container = container;
             _setupParkParams = ParamDeserializer.Deserialize<SetupParkParams>(args);
         }
 

@@ -1,11 +1,9 @@
 #region usings
 
-using System;
 using Autofac;
 using BrazilianCompany.Logic.Interface;
 using BrazilianCompany.Model.Command.Parameters;
 using BrazilianCompany.Model.Model;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -38,6 +36,6 @@ namespace BrazilianCompany.Logic.Command
         public object GetState()
         {
             return _state ?? string.Empty;
-        }     
+        }
     }
 }

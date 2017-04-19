@@ -2,6 +2,7 @@
 
 using System;
 using BrazilianCompany.Logic.Interface;
+using BrazilianCompany.Model;
 using BrazilianCompany.Model.Implementation.Vehicle;
 using BrazilianCompany.Model.Interface;
 
@@ -17,16 +18,21 @@ namespace BrazilianCompany.Logic.Implementation
             if (string.IsNullOrWhiteSpace(type))
                 throw new ArgumentException("Invalid vehicle type");
 
-            type = type.Trim().ToLowerInvariant();
+            VehicleType vehicleType;
+            if (!Enum.TryParse(type.Trim(), true, out vehicleType))
+                throw new ArgumentException("Invalid vehicle type");
 
-            switch (type)
+            switch (vehicleType)
             {
-                case "car":
-                    return new Car(licensePlate, owner, reservedHours, enterTime, sector, place);
-                case "motorbike":
-                    return new Motorbike(licensePlate, owner, reservedHours, enterTime, sector, place);
-                case "truck":
-                    return new Truck(licensePlate, owner, reservedHours, enterTime, sector, place);
+                case VehicleType.Car:
+                    return new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                        licensePlate, owner, reservedHours, enterTime, sector, place);
+                case VehicleType.Motorbike:
+                    return new Vehicle(RateConstants.MOTO_REGULAR_RATE, RateConstants.MOTO_OVERTIME_RATE,
+                        VehicleType.Motorbike, licensePlate, owner, reservedHours, enterTime, sector, place);
+                case VehicleType.Truck:
+                    return new Vehicle(RateConstants.TRUCK_REGULAR_RATE, RateConstants.TRUCK_OVERTIME_RATE,
+                        VehicleType.Truck, licensePlate, owner, reservedHours, enterTime, sector, place);
                 default:
                     throw new ArgumentOutOfRangeException();
             }

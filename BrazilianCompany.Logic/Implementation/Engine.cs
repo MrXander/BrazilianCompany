@@ -1,7 +1,6 @@
 ﻿#region usings
 
 using System;
-using System.Threading;
 using Autofac;
 using BrazilianCompany.Logic.Interface;
 using BrazilianCompany.Model.Interface;
@@ -31,7 +30,7 @@ namespace BrazilianCompany.Logic.Implementation
                 var commandLine = _userInterface.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(commandLine)) continue;
-                
+
                 try
                 {
                     var state = _commandExecutor.Execute(commandLine.Trim(), _context);

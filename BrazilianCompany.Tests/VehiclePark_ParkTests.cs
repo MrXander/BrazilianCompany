@@ -2,7 +2,7 @@
 
 using System;
 using BrazilianCompany.DataAccess;
-using BrazilianCompany.Logic.Implementation;
+using BrazilianCompany.Model;
 using BrazilianCompany.Model.Implementation.Vehicle;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -29,7 +29,8 @@ namespace BrazilianCompany.Tests
         {
             var sector = -1;
             var place = 1;
-            var vehicle = new Car("AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, place);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, place);
             _parkVehicle.Park(vehicle, sector, place, DateTime.UtcNow);
         }
 
@@ -39,7 +40,8 @@ namespace BrazilianCompany.Tests
         {
             var sector = 1;
             var place = -1;
-            var vehicle = new Car("AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, place);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, place);
             _parkVehicle.Park(vehicle, sector, place, DateTime.UtcNow);
         }
 
@@ -49,7 +51,8 @@ namespace BrazilianCompany.Tests
         {
             var sector = 4;
             var place = 1;
-            var vehicle = new Car("AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, place);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, place);
             _parkVehicle.Park(vehicle, sector, place, DateTime.UtcNow);
         }
 
@@ -59,7 +62,8 @@ namespace BrazilianCompany.Tests
         {
             var sector = 1;
             var place = 6;
-            var vehicle = new Car("AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, place);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, place);
             _parkVehicle.Park(vehicle, sector, place, DateTime.UtcNow);
         }
 
@@ -70,7 +74,8 @@ namespace BrazilianCompany.Tests
             var sector = 1;
             var placeNumber = 1;
             var reservedHours = -1;
-            var vehicle = new Car("AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, DateTime.UtcNow);
         }
 
@@ -81,7 +86,8 @@ namespace BrazilianCompany.Tests
             var sector = 1;
             var placeNumber = 1;
             var reservedHours = 0;
-            var vehicle = new Car("AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, DateTime.UtcNow);
         }
 
@@ -93,7 +99,8 @@ namespace BrazilianCompany.Tests
             var placeNumber = 1;
             var reservedHours = 1;
             var enterDate = DateTime.UtcNow.AddDays(5);
-            var vehicle = new Car("AA1111AA", "DrHouse", reservedHours, enterDate, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", reservedHours, enterDate, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, enterDate);
         }
 
@@ -105,7 +112,8 @@ namespace BrazilianCompany.Tests
             var placeNumber = 1;
             var reservedHours = 1;
             var enterDate = DateTime.UtcNow.AddDays(5);
-            var vehicle = new Car("1111AA", "DrHouse", reservedHours, enterDate, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "1111AA", "DrHouse", reservedHours, enterDate, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, enterDate);
         }
 
@@ -117,7 +125,8 @@ namespace BrazilianCompany.Tests
             var placeNumber = 1;
             var reservedHours = 1;
             var enterDate = DateTime.UtcNow.AddDays(5);
-            var vehicle = new Car(string.Empty, "DrHouse", reservedHours, enterDate, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                string.Empty, "DrHouse", reservedHours, enterDate, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, enterDate);
         }
 
@@ -129,7 +138,8 @@ namespace BrazilianCompany.Tests
             var placeNumber = 1;
             var reservedHours = 1;
             var enterDate = DateTime.UtcNow.AddDays(5);
-            var vehicle = new Car("AA1111AA", string.Empty, reservedHours, enterDate, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", string.Empty, reservedHours, enterDate, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, enterDate);
         }
 
@@ -142,7 +152,8 @@ namespace BrazilianCompany.Tests
         {
             var sector = 1;
             var placeNumber = 1;
-            var vehicle = new Car("AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
             var result = _parkVehicle.Park(vehicle, sector, placeNumber, DateTime.UtcNow);
 
             Assert.AreEqual($"{vehicle.GetType().Name} parked successfully at place ({sector},{placeNumber})", result);
@@ -157,7 +168,8 @@ namespace BrazilianCompany.Tests
         {
             var sector = 1;
             var placeNumber = 1;
-            var vehicle = new Car("A1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "A1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
             var result = _parkVehicle.Park(vehicle, sector, placeNumber, DateTime.UtcNow);
 
             Assert.AreEqual($"{vehicle.GetType().Name} parked successfully at place ({sector},{placeNumber})", result);
@@ -172,21 +184,24 @@ namespace BrazilianCompany.Tests
         {
             var sector = 1;
             var placeNumber = 1;
-            var vehicle1 = new Car("AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
+            var vehicle1 = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
             var result1 = _parkVehicle.Park(vehicle1, sector, placeNumber, DateTime.UtcNow);
 
-            Assert.AreEqual($"{vehicle1.GetType().Name} parked successfully at place ({sector},{placeNumber})", result1);
+            Assert.AreEqual($"{vehicle1.GetType().Name} parked successfully at place ({sector},{placeNumber})",
+                result1);
 
             var isPlaceOccupied = _parkVehicle.Repository.IsPlaceOccupied(sector, placeNumber);
 
             Assert.IsTrue(isPlaceOccupied);
 
-            var vehicle2 = new Car("AA2222AA", "DrRichard", 1, DateTime.UtcNow, sector, placeNumber);
+            var vehicle2 = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA2222AA", "DrRichard", 1, DateTime.UtcNow, sector, placeNumber);
             var result2 = _parkVehicle.Park(vehicle2, sector, placeNumber, DateTime.UtcNow);
 
             Assert.AreEqual($"The place ({sector},{placeNumber}) is occupied", result2);
 
-            var isVehicle2InPark =_parkVehicle.Repository.HasVehicle("AA2222AA");
+            var isVehicle2InPark = _parkVehicle.Repository.HasVehicle("AA2222AA");
             Assert.IsFalse(isVehicle2InPark);
         }
 
@@ -195,10 +210,12 @@ namespace BrazilianCompany.Tests
         {
             var sector = 1;
             var placeNumber = 1;
-            var vehicle1 = new Car("AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
+            var vehicle1 = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
             var result1 = _parkVehicle.Park(vehicle1, sector, placeNumber, DateTime.UtcNow);
 
-            Assert.AreEqual($"{vehicle1.GetType().Name} parked successfully at place ({sector},{placeNumber})", result1);
+            Assert.AreEqual($"{vehicle1.GetType().Name} parked successfully at place ({sector},{placeNumber})",
+                result1);
 
             var isPlaceOccupied = _parkVehicle.Repository.IsPlaceOccupied(sector, placeNumber);
 
@@ -206,12 +223,14 @@ namespace BrazilianCompany.Tests
 
             var sector2 = 1;
             var placeNumber2 = 2;
-            var vehicle2 = new Car("AA1111AA", "DrRichard", 1, DateTime.UtcNow, sector2, placeNumber2);
+            var vehicle2 = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrRichard", 1, DateTime.UtcNow, sector2, placeNumber2);
             var result2 = _parkVehicle.Park(vehicle2, sector2, placeNumber2, DateTime.UtcNow);
 
-            Assert.AreEqual($"There is already a vehicle with license plate {vehicle2.LicensePlate} in the park", result2);            
+            Assert.AreEqual($"There is already a vehicle with license plate {vehicle2.LicensePlate} in the park",
+                result2);
         }
 
-        #endregion       
+        #endregion
     }
 }

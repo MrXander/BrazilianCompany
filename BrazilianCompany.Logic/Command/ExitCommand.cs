@@ -1,12 +1,9 @@
 ﻿#region usings
 
-using System;
-using System.Text;
 using BrazilianCompany.Logic.Implementation;
 using BrazilianCompany.Logic.Interface;
 using BrazilianCompany.Model.Command.Parameters;
 using BrazilianCompany.Model.Model;
-using Newtonsoft.Json;
 
 #endregion
 

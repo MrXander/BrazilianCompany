@@ -7,7 +7,6 @@ using BrazilianCompany.Logic.Interface;
 using BrazilianCompany.Model.Command.Parameters;
 using BrazilianCompany.Model.Interface;
 using BrazilianCompany.Model.Model;
-using Newtonsoft.Json;
 
 #endregion
 
@@ -19,7 +18,7 @@ namespace BrazilianCompany.Logic.Command
         private IList<IVehicle> _state;
 
         public FindVehicleByOwnerCommand(string args)
-        {            
+        {
             _params = ParamDeserializer.Deserialize<FindByOwnerParams>(args);
         }
 

@@ -46,9 +46,7 @@
     <Compile Include="Command\Parameters\FindVehicleParams.cs" />
     <Compile Include="Command\Parameters\ParkParams.cs" />
     <Compile Include="Command\Parameters\SetupParkParams.cs" />
-    <Compile Include="Implementation\Vehicle\Car.cs" />
-    <Compile Include="Implementation\Vehicle\Motorbike.cs" />
-    <Compile Include="Implementation\Vehicle\Truck.cs" />
+    <Compile Include="Implementation\Vehicle\Vehicle.cs" />
     <Compile Include="Interface\IEngine.cs" />
     <Compile Include="Interface\IVehicle.cs" />
     <Compile Include="Interface\IVehiclePark.cs" />
@@ -58,6 +56,8 @@
     <Compile Include="Model\SupportedCommands.cs" />
     <Compile Include="Model\Ticket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RateConstants.cs" />
+    <Compile Include="VehicleType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

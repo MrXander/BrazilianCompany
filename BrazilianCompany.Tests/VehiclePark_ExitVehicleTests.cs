@@ -1,8 +1,8 @@
 ﻿#region usings
 
 using System;
-using System.Runtime.InteropServices;
 using BrazilianCompany.DataAccess;
+using BrazilianCompany.Model;
 using BrazilianCompany.Model.Implementation.Vehicle;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -39,7 +39,8 @@ namespace BrazilianCompany.Tests
             var reservedHours = 1;
             var time = DateTime.UtcNow;
             var paid = 10;
-            var vehicle = new Car("AA1111AA", "DrHouse", reservedHours, time, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", reservedHours, time, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, time);
             _parkVehicle.ExitVehicle(vehicle.LicensePlate, time, paid);
         }
@@ -53,7 +54,8 @@ namespace BrazilianCompany.Tests
             var reservedHours = 1;
             var time = DateTime.UtcNow;
             var paid = 0;
-            var vehicle = new Car("AA1111AA", "DrHouse", reservedHours, time, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", reservedHours, time, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, time);
             _parkVehicle.ExitVehicle(vehicle.LicensePlate, time, paid);
         }
@@ -70,7 +72,8 @@ namespace BrazilianCompany.Tests
             var reservedHours = 1;
             var exitDate = DateTime.UtcNow.AddHours(1);
             var paid = 10;
-            var vehicle = new Car("AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, DateTime.UtcNow);
             var ticket = _parkVehicle.ExitVehicle(vehicle.LicensePlate, exitDate, paid);
 
@@ -90,13 +93,14 @@ namespace BrazilianCompany.Tests
             var reservedHours = 2;
             var exitDate = DateTime.UtcNow.AddHours(1);
             var paid = 10;
-            var vehicle = new Car("AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, DateTime.UtcNow);
             var ticket = _parkVehicle.ExitVehicle(vehicle.LicensePlate, exitDate, paid);
 
             Assert.AreEqual(vehicle.RegularRate * reservedHours, ticket.Rate);
             Assert.AreEqual(0, ticket.OvertimeRate);
-            Assert.AreEqual(paid - (vehicle.RegularRate * reservedHours), ticket.Change);
+            Assert.AreEqual(paid - vehicle.RegularRate * reservedHours, ticket.Change);
 
             var isVehicleInPark = _parkVehicle.Repository.HasVehicle(vehicle.LicensePlate);
             Assert.IsFalse(isVehicleInPark);
@@ -110,13 +114,14 @@ namespace BrazilianCompany.Tests
             var reservedHours = 1;
             var exitDate = DateTime.UtcNow.AddHours(2);
             var paid = 10;
-            var vehicle = new Car("AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, DateTime.UtcNow);
             var ticket = _parkVehicle.ExitVehicle(vehicle.LicensePlate, exitDate, paid);
 
             Assert.AreEqual(vehicle.RegularRate * reservedHours, ticket.Rate);
             Assert.AreEqual(vehicle.OvertimeRate * 1, ticket.OvertimeRate);
-            Assert.AreEqual(paid - (vehicle.RegularRate * reservedHours) - vehicle.OvertimeRate, ticket.Change);
+            Assert.AreEqual(paid - vehicle.RegularRate * reservedHours - vehicle.OvertimeRate, ticket.Change);
 
             var isVehicleInPark = _parkVehicle.Repository.HasVehicle(vehicle.LicensePlate);
             Assert.IsFalse(isVehicleInPark);
@@ -128,8 +133,9 @@ namespace BrazilianCompany.Tests
             var sector = 1;
             var placeNumber = 1;
             var reservedHours = 1;
-            var exitDate = DateTime.UtcNow.AddHours(1);            
-            var vehicle = new Car("AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
+            var exitDate = DateTime.UtcNow.AddHours(1);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", reservedHours, DateTime.UtcNow, sector, placeNumber);
             var paid = vehicle.RegularRate;
 
             _parkVehicle.Park(vehicle, sector, placeNumber, DateTime.UtcNow);

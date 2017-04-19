@@ -7,26 +7,30 @@ using BrazilianCompany.Model.Interface;
 
 namespace BrazilianCompany.Model.Implementation.Vehicle
 {
-    public class Truck : IVehicle
+    public class Vehicle : IVehicle
     {
-        private const decimal REGULAR_RATE = 4.75M;
-        private const decimal OVERTIME_RATE = 6.2M;
-
-        public Truck(string licensePlate, string owner, int reservedHours, DateTime enterTime, int sector, int place)
+        public Vehicle(decimal regularRate, decimal overtimeRate, VehicleType type, string licensePlate, string owner,
+            int reservedHours,
+            DateTime enterTime, int sector, int place)
         {
+            RegularRate = regularRate;
+            OvertimeRate = overtimeRate;
+            Type = type;
             LicensePlate = licensePlate;
             Owner = owner;
             ReservedHours = reservedHours;
             EnterTime = enterTime;
             Sector = sector;
             Place = place;
-            EnterTime = enterTime;
         }
+
+        public VehicleType Type { get; }
 
         public string LicensePlate { get; }
         public string Owner { get; }
-        public decimal RegularRate => REGULAR_RATE;
-        public decimal OvertimeRate => OVERTIME_RATE;
+        public decimal RegularRate { get; }
+        public decimal OvertimeRate { get; }
+
         public int ReservedHours { get; }
         public DateTime EnterTime { get; }
         public int Sector { get; }
@@ -34,7 +38,8 @@ namespace BrazilianCompany.Model.Implementation.Vehicle
 
         public override string ToString()
         {
-            return $"{GetType().Name} [{LicensePlate}], owned by {Owner}{Environment.NewLine}Parked at ({Sector},{Place})";
+            return
+                $"{Type} [{LicensePlate}], owned by {Owner}{Environment.NewLine}Parked at ({Sector},{Place})";
         }
     }
 }

@@ -17,7 +17,7 @@ namespace BrazilianCompany.Logic.Implementation
         {
             if (string.IsNullOrWhiteSpace(command))
                 throw new InvalidOperationException("Invalid command");
-          
+
             try
             {
                 command = command.Trim();
@@ -26,7 +26,7 @@ namespace BrazilianCompany.Logic.Implementation
             catch (JsonSerializationException e)
             {
                 throw new InvalidOperationException("Invalid command");
-            }            
+            }
         }
 
         private static ICommand DefineCommand(string command, IContainer container)

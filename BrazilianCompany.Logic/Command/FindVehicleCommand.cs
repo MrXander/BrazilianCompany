@@ -4,7 +4,6 @@ using BrazilianCompany.Logic.Interface;
 using BrazilianCompany.Model.Command.Parameters;
 using BrazilianCompany.Model.Interface;
 using BrazilianCompany.Model.Model;
-using Newtonsoft.Json;
 
 #endregion
 

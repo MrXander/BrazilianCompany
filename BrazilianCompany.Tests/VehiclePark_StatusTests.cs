@@ -2,6 +2,7 @@
 
 using System;
 using BrazilianCompany.DataAccess;
+using BrazilianCompany.Model;
 using BrazilianCompany.Model.Implementation.Vehicle;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -36,7 +37,8 @@ namespace BrazilianCompany.Tests
         {
             var sector = 1;
             var placeNumber = 1;
-            var vehicle = new Car("AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, DateTime.UtcNow);
 
             var statuses = _parkVehicle.GetStatus();
@@ -52,7 +54,8 @@ namespace BrazilianCompany.Tests
         {
             var sector = 1;
             var placeNumber = 1;
-            var vehicle = new Car("AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
+            var vehicle = new Vehicle(RateConstants.CAR_REGULAR_RATE, RateConstants.CAR_OVERTIME_RATE, VehicleType.Car,
+                "AA1111AA", "DrHouse", 1, DateTime.UtcNow, sector, placeNumber);
             _parkVehicle.Park(vehicle, sector, placeNumber, DateTime.UtcNow);
 
             var statuses = _parkVehicle.GetStatus();

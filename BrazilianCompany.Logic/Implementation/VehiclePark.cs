@@ -2,8 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using BrazilianCompany.DataAccess;
 using BrazilianCompany.Model.Interface;
@@ -15,8 +13,8 @@ namespace BrazilianCompany.Logic.Implementation
 {
     public class VehiclePark : IVehiclePark
     {
-        protected readonly IDataRepository DataRepository;
         private readonly Layout _layout;
+        protected readonly IDataRepository DataRepository;
 
         public VehiclePark(int numberOfSectors, int placesPerSector, IDataRepository dataRepository)
         {
@@ -80,7 +78,7 @@ namespace BrazilianCompany.Logic.Implementation
                     if (DataRepository.IsPlaceOccupied(sector, place))
                         occupiedPlaces++;
                 }
-            
+
                 statistic.Add(new SectorStatus(sector, _layout.PlacesSec, occupiedPlaces));
             }
 
@@ -98,8 +96,8 @@ namespace BrazilianCompany.Logic.Implementation
 
         public IList<IVehicle> FindVehiclesByOwner(string owner)
         {
-            return DataRepository.FindVehiclesByOwner(owner);            
-        }       
+            return DataRepository.FindVehiclesByOwner(owner);
+        }
 
         private void Validate(int sector, int placeNumber, IVehicle vehicle, DateTime startTime)
         {
